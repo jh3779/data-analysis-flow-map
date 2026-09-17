@@ -6,6 +6,15 @@ document.querySelectorAll('.card-head').forEach(h=>{
  h.addEventListener('click',()=>h.parentElement.classList.toggle('open'));
 });
 
+document.querySelectorAll('.detail-toggle').forEach(btn=>{
+ btn.addEventListener('click',()=>{
+   const flow=btn.nextElementSibling;
+   const isOpen=flow.classList.toggle('detail-open');
+   btn.setAttribute('aria-pressed', String(isOpen));
+   btn.textContent=isOpen ? '단계별 세부 로직 숨기기' : '단계별 세부 로직 보기';
+ });
+});
+
 function filter(q){
  q=q.trim().toLowerCase();
  cards.forEach(c=>{

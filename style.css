@@ -104,8 +104,19 @@ header{position:sticky;top:0;z-index:10;background:rgba(8,11,19,.86);backdrop-fi
 .card-body{display:none;border-top:1px solid var(--border);padding:18px 20px;background:var(--bg)}
 .card.open .card-body{display:block}
 
+/* 단계별 세부 로직 토글 */
+.detail-toggle{
+  display:inline-flex;align-items:center;gap:6px;margin-bottom:12px;
+  background:transparent;border:1px solid var(--border);color:var(--muted);
+  padding:6px 13px;border-radius:var(--r-pill);font-size:12.5px;cursor:pointer;
+  transition:border-color .15s ease,color .15s ease;
+}
+.detail-toggle::before{content:"⚙";font-size:12px}
+.detail-toggle:hover{border-color:var(--border-strong);color:var(--text)}
+.detail-toggle[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+
 /* 미니 흐름 - 세로 커넥터(라인+도트)로 실제 flow map처럼 표현 */
-.mini-flow{display:grid;grid-template-columns:1fr;gap:0;margin:12px 0 16px}
+.mini-flow{display:grid;grid-template-columns:1fr;gap:0;margin:0 0 16px}
 .step{
   position:relative;background:var(--panel2);border:1px solid var(--border);border-radius:var(--r-md);
   padding:10px 12px;font-size:14.5px;
@@ -120,6 +131,14 @@ header{position:sticky;top:0;z-index:10;background:rgba(8,11,19,.86);backdrop-fi
   background:var(--accent);box-shadow:0 0 0 3px var(--bg);
 }
 .step em{font-style:normal;color:var(--accent);font-weight:600;font-family:var(--font-mono);font-size:12.5px;margin-right:2px}
+.step-detail{
+  list-style:none;margin:8px 0 0;padding:8px 0 0;display:none;
+  border-top:1px dashed var(--border);
+}
+.step-detail li{position:relative;padding-left:14px;color:var(--muted);font-size:12.5px;line-height:1.65}
+.step-detail li:not(:last-child){margin-bottom:4px}
+.step-detail li::before{content:"";position:absolute;left:0;top:8px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+.mini-flow.detail-open .step-detail{display:block}
 
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .info{background:var(--panel2);border-radius:var(--r-md);padding:13px 15px;border:1px solid var(--border)}

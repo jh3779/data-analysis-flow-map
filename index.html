@@ -68,19 +68,56 @@
 
 <section class="section" id="algorithms">
   <h2>2. 알고리즘별 내부 흐름</h2>
-  <p class="section-lead">카드를 눌러 세부 흐름을 펼치세요. 검색창으로 바로 찾을 수도 있습니다.</p>
+  <p class="section-lead">카드를 눌러 세부 흐름을 펼치세요. 각 카드의 “단계별 세부 로직 보기”를 누르면 그 단계에서 평균적으로 쓰이는 구체적인 기법까지 볼 수 있습니다.</p>
   <div class="algorithm-grid">
 
     <article class="card" id="desc" data-keywords="기초 eda 기술통계 평균 중앙값 분포 상관">
       <div class="card-head"><div class="icon">📊</div><div><h3>EDA / 기술통계</h3><span class="tag">기초 · 데이터 이해</span></div><div class="chev">⌄</div></div>
       <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
         <div class="mini-flow">
-          <div class="step"><em>입력</em> 원본 데이터</div>
-          <div class="step">행/열 · 타입 · 단위 확인</div>
-          <div class="step">결측치 · 중복 · 이상치 확인</div>
-          <div class="step">평균 · 중앙값 · 표준편차 · 사분위수</div>
-          <div class="step">히스토그램 · 박스플롯 · 산점도 · 그룹 비교</div>
-          <div class="step"><em>결과</em> 데이터 특성과 다음 분석 방향 결정</div>
+          <div class="step">
+            <div class="step-main"><em>입력</em> 원본 데이터</div>
+            <ul class="step-detail">
+              <li>원본 파일 로드(CSV/DB/API)</li>
+              <li>데이터 사전(codebook)과 스키마 대조</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">행/열 · 타입 · 단위 확인</div>
+            <ul class="step-detail">
+              <li>dtype 캐스팅(문자열→숫자/날짜 등)</li>
+              <li>단위 통일(원/달러, m/km 등), 범주형 vs 연속형 구분</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">결측치 · 중복 · 이상치 확인</div>
+            <ul class="step-detail">
+              <li>결측 패턴 파악(MCAR/MAR/MNAR)</li>
+              <li>중복 행 제거, IQR·Z-score로 극단값 스크리닝</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">평균 · 중앙값 · 표준편차 · 사분위수</div>
+            <ul class="step-detail">
+              <li>그룹별 describe(), 최빈값(범주형)</li>
+              <li>왜도·첨도로 분포 치우침 확인</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">히스토그램 · 박스플롯 · 산점도 · 그룹 비교</div>
+            <ul class="step-detail">
+              <li>상관행렬 · 히트맵으로 변수 간 관계 확인</li>
+              <li>t-test · ANOVA로 그룹 간 차이 검정</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> 데이터 특성과 다음 분석 방향 결정</div>
+            <ul class="step-detail">
+              <li>발견한 이슈 정리, 가설 후보 목록화</li>
+              <li>적합한 분석 기법 후보 좁히기</li>
+            </ul>
+          </div>
         </div>
         <div class="two"><div class="info good"><strong>언제?</strong><p>거의 모든 분석의 첫 단계.</p></div><div class="info warn"><strong>주의</strong><p>평균 하나만 보고 전체 분포를 판단하지 않는다.</p></div></div>
       </div>
@@ -89,13 +126,48 @@
     <article class="card" id="reg" data-keywords="회귀 regression linear 선형 숫자 예측 ridge lasso">
       <div class="card-head"><div class="icon">📈</div><div><h3>선형 회귀</h3><span class="tag">회귀 · 숫자 예측 / 관계 설명</span></div><div class="chev">⌄</div></div>
       <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
         <div class="mini-flow">
-          <div class="step"><em>입력</em> X 독립변수 + y 연속형 목표값</div>
-          <div class="step">결측·이상치·선형성·다중공선성 확인</div>
-          <div class="step">Train / Test 분리</div>
-          <div class="step">오차가 작아지도록 회귀계수 β 추정</div>
-          <div class="step">MAE · RMSE · R² + 잔차 진단</div>
-          <div class="step"><em>결과</em> 예측값 + 변수별 계수 해석</div>
+          <div class="step">
+            <div class="step-main"><em>입력</em> X 독립변수 + y 연속형 목표값</div>
+            <ul class="step-detail">
+              <li>피처 · 타깃 정의, 데이터 타입 확인</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">결측·이상치·선형성·다중공선성 확인</div>
+            <ul class="step-detail">
+              <li>결측 대체(평균/중앙값/모델 기반)</li>
+              <li>VIF로 다중공선성 점검, 산점도로 선형성 확인</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">Train / Test 분리</div>
+            <ul class="step-detail">
+              <li>hold-out split(예: 8:2), 필요시 K-fold CV</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">오차가 작아지도록 회귀계수 β 추정</div>
+            <ul class="step-detail">
+              <li>OLS(최소제곱법), 정규방정식 또는 경사하강법</li>
+              <li>과적합 방지 시 Ridge(L2) · Lasso(L1) 정규화</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">MAE · RMSE · R² + 잔차 진단</div>
+            <ul class="step-detail">
+              <li>Q-Q plot으로 잔차 정규성 확인</li>
+              <li>Durbin-Watson으로 자기상관 점검</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> 예측값 + 변수별 계수 해석</div>
+            <ul class="step-detail">
+              <li>표준화 계수로 변수별 영향력 비교</li>
+              <li>계수 신뢰구간 확인</li>
+            </ul>
+          </div>
         </div>
         <div class="two"><div class="info good"><strong>강점</strong><p>해석이 쉽고 좋은 baseline이 된다.</p></div><div class="info warn"><strong>주의</strong><p>계수가 곧 인과효과라는 뜻은 아니다.</p></div></div>
       </div>
@@ -104,14 +176,51 @@
     <article class="card" id="class" data-keywords="분류 logistic 로지스틱 classification 확률 binary">
       <div class="card-head"><div class="icon">🎯</div><div><h3>로지스틱 회귀</h3><span class="tag">분류 · 확률 기반</span></div><div class="chev">⌄</div></div>
       <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
         <div class="mini-flow">
-          <div class="step"><em>입력</em> X + 범주형 y</div>
-          <div class="step">전처리 · 스케일링 · 클래스 비율 확인</div>
-          <div class="step">Train / Test 분리</div>
-          <div class="step">각 클래스에 속할 확률 추정</div>
-          <div class="step">Threshold로 클래스 결정</div>
-          <div class="step">Precision · Recall · F1 · ROC-AUC 평가</div>
-          <div class="step"><em>결과</em> 클래스 + 예측 확률</div>
+          <div class="step">
+            <div class="step-main"><em>입력</em> X + 범주형 y</div>
+            <ul class="step-detail">
+              <li>피처 · 이진/다중 클래스 타깃 정의</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">전처리 · 스케일링 · 클래스 비율 확인</div>
+            <ul class="step-detail">
+              <li>표준화(StandardScaler), 범주형 원-핫 인코딩</li>
+              <li>클래스 불균형 시 오버/언더샘플링(SMOTE 등)</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">Train / Test 분리</div>
+            <ul class="step-detail">
+              <li>stratified split으로 클래스 비율 유지</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">각 클래스에 속할 확률 추정</div>
+            <ul class="step-detail">
+              <li>시그모이드 함수로 로짓을 확률로 변환</li>
+              <li>최대우도추정(MLE)으로 계수 학습</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">Threshold로 클래스 결정</div>
+            <ul class="step-detail">
+              <li>기본 0.5, 비용/목적에 따라 threshold 조정</li>
+              <li>ROC 곡선에서 최적 지점 탐색</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">Precision · Recall · F1 · ROC-AUC 평가</div>
+            <ul class="step-detail">
+              <li>혼동행렬 분석</li>
+              <li>불균형 데이터는 PR curve로 보완</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> 클래스 + 예측 확률</div>
+          </div>
         </div>
         <div class="two"><div class="info good"><strong>강점</strong><p>확률과 계수 해석이 비교적 쉽다.</p></div><div class="info warn"><strong>주의</strong><p>불균형 데이터에서는 Accuracy만 보면 위험하다.</p></div></div>
       </div>
@@ -120,13 +229,44 @@
     <article class="card" id="tree" data-keywords="분류 회귀 decision tree 의사결정나무">
       <div class="card-head"><div class="icon">🌳</div><div><h3>Decision Tree</h3><span class="tag">분류/회귀 · 규칙 기반</span></div><div class="chev">⌄</div></div>
       <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
         <div class="mini-flow">
-          <div class="step"><em>입력</em> X + y</div>
-          <div class="step">데이터를 가장 잘 나누는 조건 탐색</div>
-          <div class="step">조건에 따라 노드를 반복 분할</div>
-          <div class="step">정지 조건 / 가지치기로 복잡도 제어</div>
-          <div class="step">분류 또는 수치 예측</div>
-          <div class="step"><em>평가</em> Test/CV 성능 + 트리 구조 확인</div>
+          <div class="step">
+            <div class="step-main"><em>입력</em> X + y</div>
+          </div>
+          <div class="step">
+            <div class="step-main">데이터를 가장 잘 나누는 조건 탐색</div>
+            <ul class="step-detail">
+              <li>분류: Gini 불순도 · 정보이득(Entropy)</li>
+              <li>회귀: 분할 후 MSE 감소량 기준</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">조건에 따라 노드를 반복 분할</div>
+            <ul class="step-detail">
+              <li>재귀적 이진 분할, 각 노드에서 최적 피처·임계값 탐색</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">정지 조건 / 가지치기로 복잡도 제어</div>
+            <ul class="step-detail">
+              <li>max_depth, min_samples_leaf 등 하이퍼파라미터</li>
+              <li>cost-complexity pruning(사후 가지치기)</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">분류 또는 수치 예측</div>
+            <ul class="step-detail">
+              <li>리프 노드의 다수 클래스(분류) 또는 평균값(회귀) 반환</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>평가</em> Test/CV 성능 + 트리 구조 확인</div>
+            <ul class="step-detail">
+              <li>트리 시각화로 분할 기준 검토</li>
+              <li>feature importance 확인</li>
+            </ul>
+          </div>
         </div>
         <div class="two"><div class="info good"><strong>강점</strong><p>비선형 관계와 상호작용을 표현하기 쉽다.</p></div><div class="info warn"><strong>주의</strong><p>깊은 단일 트리는 과적합되기 쉽다.</p></div></div>
       </div>
@@ -135,13 +275,39 @@
     <article class="card" id="rf" data-keywords="분류 회귀 random forest 랜덤포레스트 ensemble 앙상블">
       <div class="card-head"><div class="icon">🌲</div><div><h3>Random Forest</h3><span class="tag">분류/회귀 · Bagging</span></div><div class="chev">⌄</div></div>
       <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
         <div class="mini-flow">
-          <div class="step"><em>입력</em> X + y</div>
-          <div class="step">여러 bootstrap 표본 생성</div>
-          <div class="step">각 표본에서 서로 다른 Decision Tree 학습</div>
-          <div class="step">분류: 다수결 / 회귀: 평균</div>
-          <div class="step">Test/CV 평가 + 변수 중요도 참고</div>
-          <div class="step"><em>결과</em> 단일 트리보다 안정적인 예측</div>
+          <div class="step">
+            <div class="step-main"><em>입력</em> X + y</div>
+          </div>
+          <div class="step">
+            <div class="step-main">여러 bootstrap 표본 생성</div>
+            <ul class="step-detail">
+              <li>복원추출로 N개 샘플셋 생성</li>
+              <li>트리마다 피처 서브셋도 무작위 선택(max_features)</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">각 표본에서 서로 다른 Decision Tree 학습</div>
+            <ul class="step-detail">
+              <li>가지치기 없이 깊게 성장시켜 트리 간 상관 최소화</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">분류: 다수결 / 회귀: 평균</div>
+            <ul class="step-detail">
+              <li>모든 트리의 예측을 집계(aggregation)</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">Test/CV 평가 + 변수 중요도 참고</div>
+            <ul class="step-detail">
+              <li>OOB(out-of-bag) 오차로 별도 검증셋 없이 성능 추정</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> 단일 트리보다 안정적인 예측</div>
+          </div>
         </div>
         <div class="two"><div class="info good"><strong>강점</strong><p>복잡한 정형 데이터에서 안정적인 baseline.</p></div><div class="info warn"><strong>주의</strong><p>변수 중요도는 인과관계가 아니다.</p></div></div>
       </div>
@@ -150,14 +316,46 @@
     <article class="card" id="boost" data-keywords="분류 회귀 gradient boosting xgboost lightgbm catboost 부스팅">
       <div class="card-head"><div class="icon">⚡</div><div><h3>Gradient Boosting</h3><span class="tag">XGBoost · LightGBM · CatBoost</span></div><div class="chev">⌄</div></div>
       <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
         <div class="mini-flow">
-          <div class="step"><em>입력</em> X + y</div>
-          <div class="step">첫 약한 모델 학습</div>
-          <div class="step">현재 모델의 오차/잔차 계산</div>
-          <div class="step">오차를 줄이는 다음 모델 추가</div>
-          <div class="step">이 과정을 순차적으로 반복</div>
-          <div class="step">CV · Early stopping · 튜닝</div>
-          <div class="step"><em>결과</em> 여러 약한 모델을 합친 강한 예측기</div>
+          <div class="step">
+            <div class="step-main"><em>입력</em> X + y</div>
+          </div>
+          <div class="step">
+            <div class="step-main">첫 약한 모델 학습</div>
+            <ul class="step-detail">
+              <li>보통 얕은 트리(stump)로 시작, 초기 예측은 평균/로그오즈</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">현재 모델의 오차/잔차 계산</div>
+            <ul class="step-detail">
+              <li>손실함수의 gradient(음의 기울기) 계산</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">오차를 줄이는 다음 모델 추가</div>
+            <ul class="step-detail">
+              <li>잔차를 타깃으로 새 트리 학습</li>
+              <li>learning rate로 기여도 조절(shrinkage)</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">이 과정을 순차적으로 반복</div>
+            <ul class="step-detail">
+              <li>n_estimators만큼 반복, 매번 이전 오차를 보정</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">CV · Early stopping · 튜닝</div>
+            <ul class="step-detail">
+              <li>validation loss로 조기 종료</li>
+              <li>learning_rate · max_depth · subsample 그리드 탐색</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> 여러 약한 모델을 합친 강한 예측기</div>
+          </div>
         </div>
         <div class="two"><div class="info good"><strong>강점</strong><p>정형 데이터 예측에서 매우 강력하다.</p></div><div class="info warn"><strong>주의</strong><p>튜닝과 데이터 누수 관리가 중요하다.</p></div></div>
       </div>
@@ -166,13 +364,42 @@
     <article class="card" id="knn" data-keywords="분류 회귀 knn nearest neighbor 최근접 이웃 거리">
       <div class="card-head"><div class="icon">📍</div><div><h3>KNN</h3><span class="tag">분류/회귀 · 거리 기반</span></div><div class="chev">⌄</div></div>
       <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
         <div class="mini-flow">
-          <div class="step"><em>입력</em> X + y</div>
-          <div class="step">변수 스케일 맞추기</div>
-          <div class="step">새 관측치와 모든 학습점의 거리 계산</div>
-          <div class="step">가장 가까운 K개 선택</div>
-          <div class="step">분류: 투표 / 회귀: 평균</div>
-          <div class="step"><em>평가</em> K값을 CV로 선택</div>
+          <div class="step">
+            <div class="step-main"><em>입력</em> X + y</div>
+          </div>
+          <div class="step">
+            <div class="step-main">변수 스케일 맞추기</div>
+            <ul class="step-detail">
+              <li>표준화 필수(거리 기반이라 스케일 차이에 민감)</li>
+              <li>범주형은 인코딩 후 거리정의 재검토</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">새 관측치와 모든 학습점의 거리 계산</div>
+            <ul class="step-detail">
+              <li>유클리드 · 맨해튼 · 코사인 거리 중 선택</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">가장 가까운 K개 선택</div>
+            <ul class="step-detail">
+              <li>작은 K: 과적합 경향 / 큰 K: 과소적합 경향</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">분류: 투표 / 회귀: 평균</div>
+            <ul class="step-detail">
+              <li>거리 가중 투표(weighted KNN)도 가능</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>평가</em> K값을 CV로 선택</div>
+            <ul class="step-detail">
+              <li>여러 K에 대한 CV 오차 곡선에서 최적 K 탐색</li>
+            </ul>
+          </div>
         </div>
         <div class="two"><div class="info good"><strong>강점</strong><p>직관적이고 별도 복잡한 학습 과정이 없다.</p></div><div class="info warn"><strong>주의</strong><p>스케일과 차원 수에 매우 민감하다.</p></div></div>
       </div>
@@ -181,14 +408,46 @@
     <article class="card" id="cluster" data-keywords="군집 clustering kmeans k-means 클러스터 비지도">
       <div class="card-head"><div class="icon">🧩</div><div><h3>K-Means</h3><span class="tag">군집 · 비지도학습</span></div><div class="chev">⌄</div></div>
       <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
         <div class="mini-flow">
-          <div class="step"><em>입력</em> 정답 없는 X</div>
-          <div class="step">스케일링 + K개 중심 초기화</div>
-          <div class="step">각 점을 가장 가까운 중심에 배정</div>
-          <div class="step">각 그룹 평균으로 중심 이동</div>
-          <div class="step">배정과 이동을 수렴할 때까지 반복</div>
-          <div class="step">Elbow / Silhouette로 군집 품질 확인</div>
-          <div class="step"><em>결과</em> K개의 데이터 그룹</div>
+          <div class="step">
+            <div class="step-main"><em>입력</em> 정답 없는 X</div>
+          </div>
+          <div class="step">
+            <div class="step-main">스케일링 + K개 중심 초기화</div>
+            <ul class="step-detail">
+              <li>표준화 필수</li>
+              <li>K-means++로 초기 중심을 퍼뜨려 수렴 안정화</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">각 점을 가장 가까운 중심에 배정</div>
+            <ul class="step-detail">
+              <li>유클리드 거리 기준 클러스터 라벨 할당</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">각 그룹 평균으로 중심 이동</div>
+            <ul class="step-detail">
+              <li>클러스터별 centroid 재계산</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">배정과 이동을 수렴할 때까지 반복</div>
+            <ul class="step-detail">
+              <li>중심 이동이 임계값 이하이거나 max_iter 도달 시 종료</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">Elbow / Silhouette로 군집 품질 확인</div>
+            <ul class="step-detail">
+              <li>WCSS(군집 내 분산)가 꺾이는 지점 탐색</li>
+              <li>Silhouette score로 군집 분리도 확인</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> K개의 데이터 그룹</div>
+          </div>
         </div>
         <div class="two"><div class="info good"><strong>강점</strong><p>대규모 데이터에도 비교적 빠르고 직관적이다.</p></div><div class="info warn"><strong>주의</strong><p>K를 정해야 하며 구형 군집 가정에 가깝다.</p></div></div>
       </div>
@@ -197,13 +456,35 @@
     <article class="card" id="dbscan" data-keywords="군집 dbscan density 밀도 noise 이상치">
       <div class="card-head"><div class="icon">🌌</div><div><h3>DBSCAN</h3><span class="tag">군집 · 밀도 기반</span></div><div class="chev">⌄</div></div>
       <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
         <div class="mini-flow">
-          <div class="step"><em>입력</em> 정답 없는 X</div>
-          <div class="step">거리 스케일 확인 / 표준화</div>
-          <div class="step">eps 반경 내 이웃 개수 계산</div>
-          <div class="step">충분히 밀집된 점에서 군집 확장</div>
-          <div class="step">어느 군집에도 속하지 않으면 Noise</div>
-          <div class="step"><em>결과</em> 임의 모양 군집 + 이상점</div>
+          <div class="step">
+            <div class="step-main"><em>입력</em> 정답 없는 X</div>
+          </div>
+          <div class="step">
+            <div class="step-main">거리 스케일 확인 / 표준화</div>
+          </div>
+          <div class="step">
+            <div class="step-main">eps 반경 내 이웃 개수 계산</div>
+            <ul class="step-detail">
+              <li>k-distance plot으로 적정 eps 추정</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">충분히 밀집된 점에서 군집 확장</div>
+            <ul class="step-detail">
+              <li>core point(min_samples 이상 이웃) 기준 밀도 연결 확장</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">어느 군집에도 속하지 않으면 Noise</div>
+            <ul class="step-detail">
+              <li>border point와 noise point 구분</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> 임의 모양 군집 + 이상점</div>
+          </div>
         </div>
         <div class="two"><div class="info good"><strong>강점</strong><p>K를 미리 정하지 않고 복잡한 모양을 찾는다.</p></div><div class="info warn"><strong>주의</strong><p>밀도가 크게 다른 군집에는 설정이 어렵다.</p></div></div>
       </div>
@@ -212,14 +493,46 @@
     <article class="card" id="pca" data-keywords="차원축소 pca principal component 주성분 분산">
       <div class="card-head"><div class="icon">🗜️</div><div><h3>PCA</h3><span class="tag">차원축소 · 정보 압축</span></div><div class="chev">⌄</div></div>
       <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
         <div class="mini-flow">
-          <div class="step"><em>입력</em> 여러 수치 변수 X</div>
-          <div class="step">일반적으로 중심화/표준화</div>
-          <div class="step">데이터 분산이 큰 방향 탐색</div>
-          <div class="step">서로 직교하는 주성분 PC 생성</div>
-          <div class="step">Explained Variance 확인</div>
-          <div class="step">필요한 PC만 선택해 데이터 변환</div>
-          <div class="step"><em>결과</em> 적은 차원의 새로운 변수</div>
+          <div class="step">
+            <div class="step-main"><em>입력</em> 여러 수치 변수 X</div>
+          </div>
+          <div class="step">
+            <div class="step-main">일반적으로 중심화/표준화</div>
+            <ul class="step-detail">
+              <li>평균 0으로 센터링</li>
+              <li>스케일 차이가 크면 표준화(분산 기준 왜곡 방지)</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">데이터 분산이 큰 방향 탐색</div>
+            <ul class="step-detail">
+              <li>공분산 행렬 계산 후 고유값 분해 또는 SVD</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">서로 직교하는 주성분 PC 생성</div>
+            <ul class="step-detail">
+              <li>고유값이 큰 순서대로 PC 정렬</li>
+              <li>각 PC는 원 변수들의 선형결합</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">Explained Variance 확인</div>
+            <ul class="step-detail">
+              <li>누적 설명분산 그래프(scree plot)로 유지할 PC 개수 결정</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">필요한 PC만 선택해 데이터 변환</div>
+            <ul class="step-detail">
+              <li>선택한 PC로 원 데이터를 투영(projection)</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> 적은 차원의 새로운 변수</div>
+          </div>
         </div>
         <div class="two"><div class="info good"><strong>강점</strong><p>상관된 많은 변수를 압축할 수 있다.</p></div><div class="info warn"><strong>주의</strong><p>PC가 원래 변수보다 해석하기 어려울 수 있다.</p></div></div>
       </div>
@@ -228,13 +541,38 @@
     <article class="card" id="anomaly" data-keywords="이상탐지 anomaly isolation forest outlier 이상치">
       <div class="card-head"><div class="icon">🚨</div><div><h3>Isolation Forest</h3><span class="tag">이상탐지</span></div><div class="chev">⌄</div></div>
       <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
         <div class="mini-flow">
-          <div class="step"><em>입력</em> 주로 정상 관측치가 많은 X</div>
-          <div class="step">무작위 변수와 분할점으로 여러 트리 생성</div>
-          <div class="step">각 관측치가 격리되기까지 필요한 분할 수 측정</div>
-          <div class="step">빠르게 격리되는 관측치에 높은 이상점수</div>
-          <div class="step">임계값/contamination으로 이상치 지정</div>
-          <div class="step"><em>결과</em> 정상/이상 + anomaly score</div>
+          <div class="step">
+            <div class="step-main"><em>입력</em> 주로 정상 관측치가 많은 X</div>
+          </div>
+          <div class="step">
+            <div class="step-main">무작위 변수와 분할점으로 여러 트리 생성</div>
+            <ul class="step-detail">
+              <li>각 iTree마다 무작위 피처·임계값으로 재귀 분할</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">각 관측치가 격리되기까지 필요한 분할 수 측정</div>
+            <ul class="step-detail">
+              <li>평균 경로 길이(path length) 계산</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">빠르게 격리되는 관측치에 높은 이상점수</div>
+            <ul class="step-detail">
+              <li>경로 길이가 짧을수록 이상 스코어 상승</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">임계값/contamination으로 이상치 지정</div>
+            <ul class="step-detail">
+              <li>contamination 비율 지정 또는 score threshold 직접 설정</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> 정상/이상 + anomaly score</div>
+          </div>
         </div>
         <div class="two"><div class="info good"><strong>강점</strong><p>고차원 데이터에도 적용 가능하다.</p></div><div class="info warn"><strong>주의</strong><p>‘드물다’와 ‘문제다’는 같은 뜻이 아니다.</p></div></div>
       </div>
@@ -243,14 +581,48 @@
     <article class="card" id="time" data-keywords="시계열 time series arima moving average forecast 예측 시간">
       <div class="card-head"><div class="icon">⏱️</div><div><h3>시계열 분석 / ARIMA 계열</h3><span class="tag">시간 순서 · Forecasting</span></div><div class="chev">⌄</div></div>
       <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
         <div class="mini-flow">
-          <div class="step"><em>입력</em> 시간순 데이터</div>
-          <div class="step">추세 · 계절성 · 결측 · 이상치 확인</div>
-          <div class="step">시간순 Train / Validation 분할</div>
-          <div class="step">정상성/차분/자기상관 구조 확인</div>
-          <div class="step">ARIMA/SARIMA 등 모델 학습</div>
-          <div class="step">미래 구간 예측 + MAE/RMSE 등 평가</div>
-          <div class="step"><em>결과</em> 미래값 + 예측 불확실성</div>
+          <div class="step">
+            <div class="step-main"><em>입력</em> 시간순 데이터</div>
+          </div>
+          <div class="step">
+            <div class="step-main">추세 · 계절성 · 결측 · 이상치 확인</div>
+            <ul class="step-detail">
+              <li>시계열 분해(STL 등)로 추세/계절성 분리</li>
+              <li>결측 보간(선형/시간가중)</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">시간순 Train / Validation 분할</div>
+            <ul class="step-detail">
+              <li>무작위 셔플 금지, rolling/expanding window 분할</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">정상성/차분/자기상관 구조 확인</div>
+            <ul class="step-detail">
+              <li>ADF 검정으로 정상성 확인, 필요시 차분(differencing)</li>
+              <li>ACF/PACF로 (p, q) 후보 파악</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">ARIMA/SARIMA 등 모델 학습</div>
+            <ul class="step-detail">
+              <li>(p,d,q) 또는 계절성 (P,D,Q,m) 파라미터 추정</li>
+              <li>MLE로 계수 적합</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">미래 구간 예측 + MAE/RMSE 등 평가</div>
+            <ul class="step-detail">
+              <li>walk-forward validation</li>
+              <li>예측구간(prediction interval) 계산</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> 미래값 + 예측 불확실성</div>
+          </div>
         </div>
         <div class="two"><div class="info good"><strong>강점</strong><p>시간 의존성과 추세를 명시적으로 다룬다.</p></div><div class="info warn"><strong>주의</strong><p>랜덤 셔플 분할을 하면 미래 정보 누수가 생길 수 있다.</p></div></div>
       </div>
@@ -259,14 +631,46 @@
     <article class="card" id="index" data-keywords="복합지수 composite index 가중치 정규화 zscore minmax 민감도 위험지수">
       <div class="card-head"><div class="icon">🧮</div><div><h3>Composite Index</h3><span class="tag">복합지수 · 위험/평가지수 구축</span></div><div class="chev">⌄</div></div>
       <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
         <div class="mini-flow">
-          <div class="step"><em>질문</em> 무엇을 하나의 지수로 표현할 것인가?</div>
-          <div class="step">이론적 틀 → 변수 선정</div>
-          <div class="step">데이터 단위 · 방향 · 공간/시간 수준 확인</div>
-          <div class="step">결측치 처리 + Raw/Z-score/Min-Max/Percentile 등 정규화 결정</div>
-          <div class="step">가중치 결정 → Weighted Sum / Geometric Mean 등 집계</div>
-          <div class="step">정규화·가중치·변수 선택을 바꾸는 민감도 분석</div>
-          <div class="step"><em>결과</em> 지수 + 순위 + 불확실성/한계</div>
+          <div class="step">
+            <div class="step-main"><em>질문</em> 무엇을 하나의 지수로 표현할 것인가?</div>
+          </div>
+          <div class="step">
+            <div class="step-main">이론적 틀 → 변수 선정</div>
+            <ul class="step-detail">
+              <li>문헌 · 전문가 검토로 하위지표(sub-indicator) 후보 선정</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">데이터 단위 · 방향 · 공간/시간 수준 확인</div>
+            <ul class="step-detail">
+              <li>역방향 지표는 부호 반전</li>
+              <li>지리적/시간적 집계 수준 통일</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">결측치 처리 + Raw/Z-score/Min-Max/Percentile 등 정규화 결정</div>
+            <ul class="step-detail">
+              <li>정규화 방식별 결과 비교</li>
+              <li>결측은 보간 또는 해당 하위지표 제외</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">가중치 결정 → Weighted Sum / Geometric Mean 등 집계</div>
+            <ul class="step-detail">
+              <li>동일가중 / PCA 기반 가중치 / 전문가 델파이 기법 등</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">정규화·가중치·변수 선택을 바꾸는 민감도 분석</div>
+            <ul class="step-detail">
+              <li>몬테카를로 시뮬레이션으로 순위 변동성 확인</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> 지수 + 순위 + 불확실성/한계</div>
+          </div>
         </div>
         <div class="two"><div class="info good"><strong>핵심</strong><p>‘계산법’보다 변수와 가중치의 이론적 근거가 중요하다.</p></div><div class="info warn"><strong>주의</strong><p>정규화 선택 때문에 순위가 뒤집히는지 반드시 확인한다.</p></div></div>
       </div>
