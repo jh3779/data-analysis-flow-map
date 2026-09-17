@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>데이터 분석 알고리즘 Flow Map</title>
+<style>
+:root{
+  --bg:#0b1020; --panel:#121a2e; --panel2:#18233d; --line:#445275;
+  --text:#edf2ff; --muted:#aab6d3; --accent:#8eb7ff; --accent2:#a9e6c5;
+  --warn:#ffd18e; --danger:#ff9aa8; --shadow:0 12px 30px rgba(0,0,0,.23);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+a{color:var(--accent);text-decoration:none}
+button,input{font:inherit}
+header{position:sticky;top:0;z-index:10;background:rgba(11,16,32,.92);backdrop-filter:blur(14px);border-bottom:1px solid #25314d}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+.nav{min-height:72px;display:flex;align-items:center;gap:16px}
+.brand{font-weight:800;letter-spacing:-.02em;white-space:nowrap}
+.brand span{color:var(--accent)}
+.search{margin-left:auto;flex:1;max-width:390px;background:#11192d;border:1px solid #2b3858;border-radius:12px;padding:10px 13px;color:var(--text);outline:none}
+.search:focus{border-color:var(--accent)}
+.hero{padding:70px 0 36px}
+.hero h1{font-size:clamp(32px,5vw,56px);line-height:1.08;margin:0 0 18px;letter-spacing:-.045em}
+.hero p{max-width:780px;color:var(--muted);font-size:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{border:1px solid #354463;background:#131c32;color:#dfe7fb;padding:8px 11px;border-radius:999px;cursor:pointer}
+.chip:hover{border-color:var(--accent)}
+.section{padding:32px 0}
+.section h2{font-size:28px;margin:0 0 8px;letter-spacing:-.025em}
+.section-lead{color:var(--muted);margin:0 0 22px}
+.panel{background:var(--panel);border:1px solid #263450;border-radius:18px;padding:22px;box-shadow:var(--shadow)}
+.flow{display:flex;align-items:stretch;gap:10px;overflow-x:auto;padding:8px 2px 12px}
+.node{min-width:175px;background:var(--panel2);border:1px solid #334365;border-radius:14px;padding:14px}
+.node b{display:block;margin-bottom:4px}
+.node small{color:var(--muted)}
+.arrow{display:flex;align-items:center;color:#6e7ea5;font-size:26px}
+.decision-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.choice{background:#16213a;border:1px solid #31415f;border-radius:14px;padding:16px;cursor:pointer;transition:.18s}
+.choice:hover{transform:translateY(-2px);border-color:var(--accent)}
+.choice strong{display:block;font-size:17px;margin-bottom:5px}
+.choice span{color:var(--muted);font-size:14px}
+.algorithm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid #273550;border-radius:17px;overflow:hidden;box-shadow:var(--shadow)}
+.card.hidden{display:none}
+.card-head{padding:18px 20px;display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:#1e2c4b;font-size:21px;flex:0 0 auto}
+.card h3{margin:0;font-size:19px}
+.tag{display:inline-block;margin-top:5px;color:var(--muted);font-size:13px}
+.chev{margin-left:auto;color:#8593b6;transition:.2s}
+.card.open .chev{transform:rotate(180deg)}
+.card-body{display:none;border-top:1px solid #273550;padding:18px 20px;background:#0f172a}
+.card.open .card-body{display:block}
+.mini-flow{display:grid;grid-template-columns:1fr;gap:7px;margin:12px 0 16px}
+.step{position:relative;background:#17233c;border:1px solid #30405f;border-radius:11px;padding:10px 12px}
+.step:not(:last-child)::after{content:"↓";position:absolute;left:50%;bottom:-19px;transform:translateX(-50%);color:#7c8bae;z-index:2}
+.step:not(:last-child){margin-bottom:11px}
+.step em{font-style:normal;color:var(--accent2);font-weight:700}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.info{background:#141f36;border-radius:12px;padding:12px 14px;border:1px solid #2a3957}
+.info strong{font-size:14px}
+.info p{color:var(--muted);font-size:14px;margin:5px 0 0}
+.warn{border-color:#5a4b33}.warn strong{color:var(--warn)}
+.good strong{color:var(--accent2)}
+.table{width:100%;border-collapse:collapse;font-size:14px}
+.table th,.table td{padding:11px 9px;border-bottom:1px solid #26344f;text-align:left;vertical-align:top}
+.table th{color:#bfcbe6}
+.table td{color:var(--muted)}
+.callout{border-left:4px solid var(--accent);background:#121e35;padding:14px 16px;border-radius:0 12px 12px 0}
+.footer{padding:46px 0 70px;color:var(--muted);font-size:14px}
+.kbd{padding:2px 7px;border-radius:6px;background:#202d48;border:1px solid #354362}
+@media(max-width:880px){
+ .decision-grid,.algorithm-grid,.two{grid-template-columns:1fr}
+ .search{max-width:none}
+ .nav{flex-wrap:wrap;padding:12px 0}
+ .search{order:3;width:100%}
+}
+@media print{
+ header,.chips{display:none}
+ body{background:#fff;color:#111}
+ .panel,.card{box-shadow:none;border-color:#bbb;background:#fff}
+ .card-body{display:block!important;background:#fff}
+ .card{break-inside:avoid}
+ .node,.step,.choice,.info{background:#fff;color:#111;border-color:#bbb}
+ .section-lead,.tag,.info p,.node small,.choice span,.table td{color:#555}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <div class="brand">DATA <span>FLOW MAP</span></div>
+    <div style="color:var(--muted);font-size:14px">데이터 분석 학습용</div>
+    <input id="search" class="search" placeholder="알고리즘 검색: 회귀, PCA, 군집, 시계열..." />
+  </div>
+</header>
+
+<main class="wrap">
+<section class="hero">
+  <h1>문제에서 알고리즘까지,<br>한 장으로 연결해서 보기</h1>
+  <p>“무엇을 알고 싶은가?”에서 시작해 분석 유형을 고르고, 각 알고리즘이 <b>입력 → 전처리 → 학습 → 평가 → 해석</b>으로 어떻게 흘러가는지 확인하는 개인 학습용 지도입니다.</p>
+  <div class="chips">
+    <button class="chip" data-filter="all">전체</button>
+    <button class="chip" data-filter="기초">기초/EDA</button>
+    <button class="chip" data-filter="회귀">회귀</button>
+    <button class="chip" data-filter="분류">분류</button>
+    <button class="chip" data-filter="군집">군집</button>
+    <button class="chip" data-filter="차원축소">차원축소</button>
+    <button class="chip" data-filter="이상탐지">이상탐지</button>
+    <button class="chip" data-filter="시계열">시계열</button>
+    <button class="chip" data-filter="복합지수">복합지수</button>
+  </div>
+</section>
+
+<section class="section" id="start">
+  <h2>0. 모든 분석의 공통 시작점</h2>
+  <p class="section-lead">알고리즘은 시작점이 아니라 중간 도구입니다.</p>
+  <div class="panel">
+    <div class="flow">
+      <div class="node"><b>① 질문 정의</b><small>무엇을 알고 싶은가?</small></div><div class="arrow">→</div>
+      <div class="node"><b>② 데이터 확보</b><small>답에 필요한 관측치는?</small></div><div class="arrow">→</div>
+      <div class="node"><b>③ 데이터 이해</b><small>행·열·단위·표본·분포</small></div><div class="arrow">→</div>
+      <div class="node"><b>④ EDA/전처리</b><small>결측·이상치·관계 확인</small></div><div class="arrow">→</div>
+      <div class="node"><b>⑤ 방법 선택</b><small>질문에 맞는 알고리즘</small></div><div class="arrow">→</div>
+      <div class="node"><b>⑥ 검증/해석</b><small>믿을 수 있는 결과인가?</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>1. 어떤 문제인가?</h2>
+  <p class="section-lead">아래 질문에서 가장 가까운 것을 고르면 됩니다.</p>
+  <div class="decision-grid">
+    <div class="choice" data-jump="desc"><strong>📊 현재 데이터를 설명</strong><span>평균·분포·그룹 차이·관계가 궁금하다 → EDA / 기술통계 / 상관</span></div>
+    <div class="choice" data-jump="reg"><strong>🔢 숫자를 예측</strong><span>가격·매출·수요처럼 연속적인 값을 맞히고 싶다 → Regression</span></div>
+    <div class="choice" data-jump="class"><strong>🏷️ 종류를 예측</strong><span>정상/사기, 이탈/유지처럼 범주를 맞히고 싶다 → Classification</span></div>
+    <div class="choice" data-jump="cluster"><strong>🧩 그룹을 찾기</strong><span>정답 라벨 없이 비슷한 대상을 묶고 싶다 → Clustering</span></div>
+    <div class="choice" data-jump="pca"><strong>🗜️ 변수를 압축</strong><span>변수가 너무 많고 핵심 축을 찾고 싶다 → PCA</span></div>
+    <div class="choice" data-jump="anomaly"><strong>🚨 이상한 관측치 찾기</strong><span>정상 패턴에서 벗어난 데이터를 탐지 → Anomaly Detection</span></div>
+    <div class="choice" data-jump="time"><strong>⏱️ 시간 흐름을 분석</strong><span>추세·계절성·미래 값을 알고 싶다 → Time Series</span></div>
+    <div class="choice" data-jump="index"><strong>🧮 여러 지표를 하나로</strong><span>여러 변수로 위험도·점수·지수를 만들고 싶다 → Composite Index</span></div>
+  </div>
+</section>
+
+<section class="section" id="algorithms">
+  <h2>2. 알고리즘별 내부 흐름</h2>
+  <p class="section-lead">카드를 눌러 세부 흐름을 펼치세요. 검색창으로 바로 찾을 수도 있습니다.</p>
+  <div class="algorithm-grid">
+
+    <article class="card" id="desc" data-keywords="기초 eda 기술통계 평균 중앙값 분포 상관">
+      <div class="card-head"><div class="icon">📊</div><div><h3>EDA / 기술통계</h3><span class="tag">기초 · 데이터 이해</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <div class="mini-flow">
+          <div class="step"><em>입력</em> 원본 데이터</div>
+          <div class="step">행/열 · 타입 · 단위 확인</div>
+          <div class="step">결측치 · 중복 · 이상치 확인</div>
+          <div class="step">평균 · 중앙값 · 표준편차 · 사분위수</div>
+          <div class="step">히스토그램 · 박스플롯 · 산점도 · 그룹 비교</div>
+          <div class="step"><em>결과</em> 데이터 특성과 다음 분석 방향 결정</div>
+        </div>
+        <div class="two"><div class="info good"><strong>언제?</strong><p>거의 모든 분석의 첫 단계.</p></div><div class="info warn"><strong>주의</strong><p>평균 하나만 보고 전체 분포를 판단하지 않는다.</p></div></div>
+      </div>
+    </article>
+
+    <article class="card" id="reg" data-keywords="회귀 regression linear 선형 숫자 예측 ridge lasso">
+      <div class="card-head"><div class="icon">📈</div><div><h3>선형 회귀</h3><span class="tag">회귀 · 숫자 예측 / 관계 설명</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <div class="mini-flow">
+          <div class="step"><em>입력</em> X 독립변수 + y 연속형 목표값</div>
+          <div class="step">결측·이상치·선형성·다중공선성 확인</div>
+          <div class="step">Train / Test 분리</div>
+          <div class="step">오차가 작아지도록 회귀계수 β 추정</div>
+          <div class="step">MAE · RMSE · R² + 잔차 진단</div>
+          <div class="step"><em>결과</em> 예측값 + 변수별 계수 해석</div>
+        </div>
+        <div class="two"><div class="info good"><strong>강점</strong><p>해석이 쉽고 좋은 baseline이 된다.</p></div><div class="info warn"><strong>주의</strong><p>계수가 곧 인과효과라는 뜻은 아니다.</p></div></div>
+      </div>
+    </article>
+
+    <article class="card" id="class" data-keywords="분류 logistic 로지스틱 classification 확률 binary">
+      <div class="card-head"><div class="icon">🎯</div><div><h3>로지스틱 회귀</h3><span class="tag">분류 · 확률 기반</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <div class="mini-flow">
+          <div class="step"><em>입력</em> X + 범주형 y</div>
+          <div class="step">전처리 · 스케일링 · 클래스 비율 확인</div>
+          <div class="step">Train / Test 분리</div>
+          <div class="step">각 클래스에 속할 확률 추정</div>
+          <div class="step">Threshold로 클래스 결정</div>
+          <div class="step">Precision · Recall · F1 · ROC-AUC 평가</div>
+          <div class="step"><em>결과</em> 클래스 + 예측 확률</div>
+        </div>
+        <div class="two"><div class="info good"><strong>강점</strong><p>확률과 계수 해석이 비교적 쉽다.</p></div><div class="info warn"><strong>주의</strong><p>불균형 데이터에서는 Accuracy만 보면 위험하다.</p></div></div>
+      </div>
+    </article>
+
+    <article class="card" id="tree" data-keywords="분류 회귀 decision tree 의사결정나무">
+      <div class="card-head"><div class="icon">🌳</div><div><h3>Decision Tree</h3><span class="tag">분류/회귀 · 규칙 기반</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <div class="mini-flow">
+          <div class="step"><em>입력</em> X + y</div>
+          <div class="step">데이터를 가장 잘 나누는 조건 탐색</div>
+          <div class="step">조건에 따라 노드를 반복 분할</div>
+          <div class="step">정지 조건 / 가지치기로 복잡도 제어</div>
+          <div class="step">분류 또는 수치 예측</div>
+          <div class="step"><em>평가</em> Test/CV 성능 + 트리 구조 확인</div>
+        </div>
+        <div class="two"><div class="info good"><strong>강점</strong><p>비선형 관계와 상호작용을 표현하기 쉽다.</p></div><div class="info warn"><strong>주의</strong><p>깊은 단일 트리는 과적합되기 쉽다.</p></div></div>
+      </div>
+    </article>
+
+    <article class="card" id="rf" data-keywords="분류 회귀 random forest 랜덤포레스트 ensemble 앙상블">
+      <div class="card-head"><div class="icon">🌲</div><div><h3>Random Forest</h3><span class="tag">분류/회귀 · Bagging</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <div class="mini-flow">
+          <div class="step"><em>입력</em> X + y</div>
+          <div class="step">여러 bootstrap 표본 생성</div>
+          <div class="step">각 표본에서 서로 다른 Decision Tree 학습</div>
+          <div class="step">분류: 다수결 / 회귀: 평균</div>
+          <div class="step">Test/CV 평가 + 변수 중요도 참고</div>
+          <div class="step"><em>결과</em> 단일 트리보다 안정적인 예측</div>
+        </div>
+        <div class="two"><div class="info good"><strong>강점</strong><p>복잡한 정형 데이터에서 안정적인 baseline.</p></div><div class="info warn"><strong>주의</strong><p>변수 중요도는 인과관계가 아니다.</p></div></div>
+      </div>
+    </article>
+
+    <article class="card" id="boost" data-keywords="분류 회귀 gradient boosting xgboost lightgbm catboost 부스팅">
+      <div class="card-head"><div class="icon">⚡</div><div><h3>Gradient Boosting</h3><span class="tag">XGBoost · LightGBM · CatBoost</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <div class="mini-flow">
+          <div class="step"><em>입력</em> X + y</div>
+          <div class="step">첫 약한 모델 학습</div>
+          <div class="step">현재 모델의 오차/잔차 계산</div>
+          <div class="step">오차를 줄이는 다음 모델 추가</div>
+          <div class="step">이 과정을 순차적으로 반복</div>
+          <div class="step">CV · Early stopping · 튜닝</div>
+          <div class="step"><em>결과</em> 여러 약한 모델을 합친 강한 예측기</div>
+        </div>
+        <div class="two"><div class="info good"><strong>강점</strong><p>정형 데이터 예측에서 매우 강력하다.</p></div><div class="info warn"><strong>주의</strong><p>튜닝과 데이터 누수 관리가 중요하다.</p></div></div>
+      </div>
+    </article>
+
+    <article class="card" id="knn" data-keywords="분류 회귀 knn nearest neighbor 최근접 이웃 거리">
+      <div class="card-head"><div class="icon">📍</div><div><h3>KNN</h3><span class="tag">분류/회귀 · 거리 기반</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <div class="mini-flow">
+          <div class="step"><em>입력</em> X + y</div>
+          <div class="step">변수 스케일 맞추기</div>
+          <div class="step">새 관측치와 모든 학습점의 거리 계산</div>
+          <div class="step">가장 가까운 K개 선택</div>
+          <div class="step">분류: 투표 / 회귀: 평균</div>
+          <div class="step"><em>평가</em> K값을 CV로 선택</div>
+        </div>
+        <div class="two"><div class="info good"><strong>강점</strong><p>직관적이고 별도 복잡한 학습 과정이 없다.</p></div><div class="info warn"><strong>주의</strong><p>스케일과 차원 수에 매우 민감하다.</p></div></div>
+      </div>
+    </article>
+
+    <article class="card" id="cluster" data-keywords="군집 clustering kmeans k-means 클러스터 비지도">
+      <div class="card-head"><div class="icon">🧩</div><div><h3>K-Means</h3><span class="tag">군집 · 비지도학습</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <div class="mini-flow">
+          <div class="step"><em>입력</em> 정답 없는 X</div>
+          <div class="step">스케일링 + K개 중심 초기화</div>
+          <div class="step">각 점을 가장 가까운 중심에 배정</div>
+          <div class="step">각 그룹 평균으로 중심 이동</div>
+          <div class="step">배정과 이동을 수렴할 때까지 반복</div>
+          <div class="step">Elbow / Silhouette로 군집 품질 확인</div>
+          <div class="step"><em>결과</em> K개의 데이터 그룹</div>
+        </div>
+        <div class="two"><div class="info good"><strong>강점</strong><p>대규모 데이터에도 비교적 빠르고 직관적이다.</p></div><div class="info warn"><strong>주의</strong><p>K를 정해야 하며 구형 군집 가정에 가깝다.</p></div></div>
+      </div>
+    </article>
+
+    <article class="card" id="dbscan" data-keywords="군집 dbscan density 밀도 noise 이상치">
+      <div class="card-head"><div class="icon">🌌</div><div><h3>DBSCAN</h3><span class="tag">군집 · 밀도 기반</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <div class="mini-flow">
+          <div class="step"><em>입력</em> 정답 없는 X</div>
+          <div class="step">거리 스케일 확인 / 표준화</div>
+          <div class="step">eps 반경 내 이웃 개수 계산</div>
+          <div class="step">충분히 밀집된 점에서 군집 확장</div>
+          <div class="step">어느 군집에도 속하지 않으면 Noise</div>
+          <div class="step"><em>결과</em> 임의 모양 군집 + 이상점</div>
+        </div>
+        <div class="two"><div class="info good"><strong>강점</strong><p>K를 미리 정하지 않고 복잡한 모양을 찾는다.</p></div><div class="info warn"><strong>주의</strong><p>밀도가 크게 다른 군집에는 설정이 어렵다.</p></div></div>
+      </div>
+    </article>
+
+    <article class="card" id="pca" data-keywords="차원축소 pca principal component 주성분 분산">
+      <div class="card-head"><div class="icon">🗜️</div><div><h3>PCA</h3><span class="tag">차원축소 · 정보 압축</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <div class="mini-flow">
+          <div class="step"><em>입력</em> 여러 수치 변수 X</div>
+          <div class="step">일반적으로 중심화/표준화</div>
+          <div class="step">데이터 분산이 큰 방향 탐색</div>
+          <div class="step">서로 직교하는 주성분 PC 생성</div>
+          <div class="step">Explained Variance 확인</div>
+          <div class="step">필요한 PC만 선택해 데이터 변환</div>
+          <div class="step"><em>결과</em> 적은 차원의 새로운 변수</div>
+        </div>
+        <div class="two"><div class="info good"><strong>강점</strong><p>상관된 많은 변수를 압축할 수 있다.</p></div><div class="info warn"><strong>주의</strong><p>PC가 원래 변수보다 해석하기 어려울 수 있다.</p></div></div>
+      </div>
+    </article>
+
+    <article class="card" id="anomaly" data-keywords="이상탐지 anomaly isolation forest outlier 이상치">
+      <div class="card-head"><div class="icon">🚨</div><div><h3>Isolation Forest</h3><span class="tag">이상탐지</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <div class="mini-flow">
+          <div class="step"><em>입력</em> 주로 정상 관측치가 많은 X</div>
+          <div class="step">무작위 변수와 분할점으로 여러 트리 생성</div>
+          <div class="step">각 관측치가 격리되기까지 필요한 분할 수 측정</div>
+          <div class="step">빠르게 격리되는 관측치에 높은 이상점수</div>
+          <div class="step">임계값/contamination으로 이상치 지정</div>
+          <div class="step"><em>결과</em> 정상/이상 + anomaly score</div>
+        </div>
+        <div class="two"><div class="info good"><strong>강점</strong><p>고차원 데이터에도 적용 가능하다.</p></div><div class="info warn"><strong>주의</strong><p>‘드물다’와 ‘문제다’는 같은 뜻이 아니다.</p></div></div>
+      </div>
+    </article>
+
+    <article class="card" id="time" data-keywords="시계열 time series arima moving average forecast 예측 시간">
+      <div class="card-head"><div class="icon">⏱️</div><div><h3>시계열 분석 / ARIMA 계열</h3><span class="tag">시간 순서 · Forecasting</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <div class="mini-flow">
+          <div class="step"><em>입력</em> 시간순 데이터</div>
+          <div class="step">추세 · 계절성 · 결측 · 이상치 확인</div>
+          <div class="step">시간순 Train / Validation 분할</div>
+          <div class="step">정상성/차분/자기상관 구조 확인</div>
+          <div class="step">ARIMA/SARIMA 등 모델 학습</div>
+          <div class="step">미래 구간 예측 + MAE/RMSE 등 평가</div>
+          <div class="step"><em>결과</em> 미래값 + 예측 불확실성</div>
+        </div>
+        <div class="two"><div class="info good"><strong>강점</strong><p>시간 의존성과 추세를 명시적으로 다룬다.</p></div><div class="info warn"><strong>주의</strong><p>랜덤 셔플 분할을 하면 미래 정보 누수가 생길 수 있다.</p></div></div>
+      </div>
+    </article>
+
+    <article class="card" id="index" data-keywords="복합지수 composite index 가중치 정규화 zscore minmax 민감도 위험지수">
+      <div class="card-head"><div class="icon">🧮</div><div><h3>Composite Index</h3><span class="tag">복합지수 · 위험/평가지수 구축</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <div class="mini-flow">
+          <div class="step"><em>질문</em> 무엇을 하나의 지수로 표현할 것인가?</div>
+          <div class="step">이론적 틀 → 변수 선정</div>
+          <div class="step">데이터 단위 · 방향 · 공간/시간 수준 확인</div>
+          <div class="step">결측치 처리 + Raw/Z-score/Min-Max/Percentile 등 정규화 결정</div>
+          <div class="step">가중치 결정 → Weighted Sum / Geometric Mean 등 집계</div>
+          <div class="step">정규화·가중치·변수 선택을 바꾸는 민감도 분석</div>
+          <div class="step"><em>결과</em> 지수 + 순위 + 불확실성/한계</div>
+        </div>
+        <div class="two"><div class="info good"><strong>핵심</strong><p>‘계산법’보다 변수와 가중치의 이론적 근거가 중요하다.</p></div><div class="info warn"><strong>주의</strong><p>정규화 선택 때문에 순위가 뒤집히는지 반드시 확인한다.</p></div></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>3. 빠른 비교표</h2>
+  <div class="panel" style="overflow:auto">
+  <table class="table">
+    <thead><tr><th>목적</th><th>대표 방법</th><th>목표값 y</th><th>스케일 영향</th><th>핵심 평가</th></tr></thead>
+    <tbody>
+      <tr><td>데이터 이해</td><td>EDA / 기술통계</td><td>없어도 됨</td><td>방법에 따라 다름</td><td>분포·품질·해석</td></tr>
+      <tr><td>숫자 예측</td><td>Linear / RF / Boosting</td><td>연속형</td><td>모델별 상이</td><td>MAE·RMSE·R²</td></tr>
+      <tr><td>범주 예측</td><td>Logistic / Tree / RF / Boosting</td><td>범주형</td><td>모델별 상이</td><td>Precision·Recall·F1·AUC</td></tr>
+      <tr><td>그룹 발견</td><td>K-Means / DBSCAN</td><td>없음</td><td>대체로 중요</td><td>Silhouette + 해석 가능성</td></tr>
+      <tr><td>차원축소</td><td>PCA</td><td>없음</td><td>중요</td><td>Explained Variance</td></tr>
+      <tr><td>이상 탐지</td><td>IQR / Isolation Forest</td><td>선택적</td><td>방법별 상이</td><td>실제 이상 사례 검증</td></tr>
+      <tr><td>시간 예측</td><td>ARIMA / SARIMA 등</td><td>시간순 값</td><td>방법별 상이</td><td>시간순 검증 MAE/RMSE</td></tr>
+      <tr><td>하나의 지수</td><td>Composite Index</td><td>보통 없음</td><td>매우 중요</td><td>민감도·강건성·해석</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section class="section">
+  <div class="callout">
+    <b>학습할 때 기억할 문장</b><br>
+    “어떤 알고리즘이 제일 좋은가?”보다 먼저 <b>“내 질문은 무엇이고, 이 알고리즘의 가정이 내 데이터에 맞는가?”</b>를 묻는다.
+  </div>
+</section>
+
+<section class="section">
+  <h2>4. 참고용 공식 자료</h2>
+  <p class="section-lead">알고리즘 선택 자체는 공식 문서의 흐름도를 같이 보면 좋습니다.</p>
+  <div class="two">
+    <div class="info"><strong>scikit-learn — Choosing the right estimator</strong><p><a href="https://scikit-learn.org/dev/machine_learning_map.html" target="_blank">공식 estimator 선택 흐름도 열기 ↗</a></p></div>
+    <div class="info"><strong>SAS — Machine Learning Algorithm Guide</strong><p><a href="https://www.sas.com/ko_kr/solutions/ai-mic/blog/machine-learning-algorithm-cheat-sheet.html" target="_blank">알고리즘 치트시트 설명 열기 ↗</a></p></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <b>사용 팁:</b> 검색창에 알고리즘 이름이나 목적을 입력하세요. 카드를 펼친 상태로 브라우저의 <span class="kbd">인쇄</span> → PDF 저장을 사용하면 개인 치트시트로도 보관할 수 있습니다.
+</footer>
+</main>
+
+<script>
+const cards=[...document.querySelectorAll('.card')];
+document.querySelectorAll('.card-head').forEach(h=>{
+ h.addEventListener('click',()=>h.parentElement.classList.toggle('open'));
+});
+function filter(q){
+ q=q.trim().toLowerCase();
+ cards.forEach(c=>{
+   const text=(c.innerText+' '+c.dataset.keywords).toLowerCase();
+   c.classList.toggle('hidden', q && q!=='all' && !text.includes(q));
+ });
+}
+document.getElementById('search').addEventListener('input',e=>filter(e.target.value));
+document.querySelectorAll('.chip').forEach(b=>{
+ b.addEventListener('click',()=>{
+   const v=b.dataset.filter;
+   document.getElementById('search').value=v==='all'?'':v;
+   filter(v==='all'?'':v);
+   document.getElementById('algorithms').scrollIntoView();
+ });
+});
+document.querySelectorAll('.choice').forEach(c=>{
+ c.addEventListener('click',()=>{
+   const target=document.getElementById(c.dataset.jump);
+   target.classList.add('open');
+   target.scrollIntoView({behavior:'smooth',block:'center'});
+ });
+});
+</script>
+</body>
+</html>
