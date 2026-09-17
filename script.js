@@ -52,6 +52,9 @@ document.querySelectorAll('.choice').forEach(c=>{
    }
  });
 });
+document.querySelectorAll('.compare-link').forEach(c=>{
+ c.addEventListener('click',()=>jumpTo(c));
+});
 
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if(!reduceMotion && 'IntersectionObserver' in window){

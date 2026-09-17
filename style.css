@@ -48,7 +48,7 @@ header{position:sticky;top:0;z-index:10;background:rgba(8,11,19,.86);backdrop-fi
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
 .chip{
   border:1px solid var(--border);background:var(--panel);color:var(--muted);
-  padding:8px 13px;border-radius:var(--r-pill);cursor:pointer;font-size:14px;
+  padding:11px 16px;min-height:44px;border-radius:var(--r-pill);cursor:pointer;font-size:14px;
   transition:border-color .15s ease,color .15s ease,background-color .15s ease;
 }
 .chip:hover{border-color:var(--border-strong);color:var(--text)}
@@ -106,9 +106,9 @@ header{position:sticky;top:0;z-index:10;background:rgba(8,11,19,.86);backdrop-fi
 
 /* 단계별 세부 로직 토글 */
 .detail-toggle{
-  display:inline-flex;align-items:center;gap:6px;margin-bottom:12px;
+  display:inline-flex;align-items:center;gap:6px;margin-bottom:12px;min-height:40px;
   background:transparent;border:1px solid var(--border);color:var(--muted);
-  padding:6px 13px;border-radius:var(--r-pill);font-size:12.5px;cursor:pointer;
+  padding:9px 15px;border-radius:var(--r-pill);font-size:12.5px;cursor:pointer;
   transition:border-color .15s ease,color .15s ease;
 }
 .detail-toggle::before{content:"⚙";font-size:12px}
@@ -141,11 +141,22 @@ header{position:sticky;top:0;z-index:10;background:rgba(8,11,19,.86);backdrop-fi
 .mini-flow.detail-open .step-detail{display:block}
 
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .info{background:var(--panel2);border-radius:var(--r-md);padding:13px 15px;border:1px solid var(--border)}
 .info strong{font-size:13.5px;font-family:var(--font-mono);letter-spacing:.01em}
 .info p{color:var(--muted);font-size:14px;margin:6px 0 0}
 .warn{border-color:rgba(251,191,36,.25);background:var(--warn-dim)}.warn strong{color:var(--warn)}
 .good{border-color:rgba(134,239,172,.25);background:var(--good-dim)}.good strong{color:var(--good)}
+.pre strong{color:var(--muted)}
+
+/* 비슷한 것과 비교 */
+.compare{margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);font-size:13.5px;color:var(--muted)}
+.compare-tag{display:inline-block;font-family:var(--font-mono);font-size:11.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.04em;margin-right:6px}
+.compare-link{
+  background:transparent;border:none;padding:0 1px;color:var(--accent);cursor:pointer;
+  font:inherit;font-weight:600;text-decoration:underline dotted;text-underline-offset:3px;
+}
+.compare-link:hover{text-decoration-style:solid}
 
 .table{width:100%;border-collapse:collapse;font-size:14px}
 .table th,.table td{padding:11px 10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
@@ -166,7 +177,7 @@ header{position:sticky;top:0;z-index:10;background:rgba(8,11,19,.86);backdrop-fi
 }
 
 @media(max-width:880px){
- .decision-grid,.algorithm-grid,.two{grid-template-columns:1fr}
+ .decision-grid,.algorithm-grid,.two,.three{grid-template-columns:1fr}
  .search{max-width:none}
  .nav{flex-wrap:wrap;padding:12px 0}
  .search{order:3;flex-basis:100%;width:auto}
@@ -175,7 +186,7 @@ header{position:sticky;top:0;z-index:10;background:rgba(8,11,19,.86);backdrop-fi
  .nav-sub{display:none}
 }
 @media print{
- header,.chips{display:none}
+ header,.chips,.detail-toggle{display:none}
  body{background:#fff;color:#111;background-image:none}
  .panel,.card{box-shadow:none;border-color:#bbb;background:#fff}
  .card-body{display:block!important;background:#fff}
@@ -183,4 +194,7 @@ header{position:sticky;top:0;z-index:10;background:rgba(8,11,19,.86);backdrop-fi
  .node,.step,.choice,.info{background:#fff;color:#111;border-color:#bbb}
  .section-lead,.tag,.info p,.node small,.choice span,.table td{color:#555}
  .reveal{opacity:1!important;transform:none!important}
+ .step-detail{display:block!important}
+ .step-detail li{color:#555}
+ .compare-link{color:#111;text-decoration:underline}
 }

@@ -26,6 +26,7 @@
   <div class="chips">
     <button class="chip" data-filter="all">전체</button>
     <button class="chip" data-filter="기초">기초/EDA</button>
+    <button class="chip" data-filter="통계">통계 검정</button>
     <button class="chip" data-filter="회귀">회귀</button>
     <button class="chip" data-filter="분류">분류</button>
     <button class="chip" data-filter="군집">군집</button>
@@ -56,6 +57,9 @@
   <p class="section-lead">아래 질문에서 가장 가까운 것을 고르면 됩니다.</p>
   <div class="decision-grid">
     <div class="choice" data-jump="desc" role="button" tabindex="0"><strong>📊 현재 데이터를 설명</strong><span>평균·분포·그룹 차이·관계가 궁금하다 → EDA / 기술통계 / 상관</span></div>
+    <div class="choice" data-jump="corr" role="button" tabindex="0"><strong>🔗 두 변수의 관계 강도</strong><span>두 연속형 변수가 얼마나 관련 있는지 알고 싶다 → 상관분석</span></div>
+    <div class="choice" data-jump="ttest" role="button" tabindex="0"><strong>⚖️ 그룹 간 평균 차이 검정</strong><span>2그룹이면 t-test, 3그룹 이상이면 ANOVA → 가설검정</span></div>
+    <div class="choice" data-jump="chisq" role="button" tabindex="0"><strong>🔲 범주형 변수 간 연관성</strong><span>두 범주형 변수가 서로 관련 있는지 알고 싶다 → Chi-square</span></div>
     <div class="choice" data-jump="reg" role="button" tabindex="0"><strong>🔢 숫자를 예측</strong><span>가격·매출·수요처럼 연속적인 값을 맞히고 싶다 → Regression</span></div>
     <div class="choice" data-jump="class" role="button" tabindex="0"><strong>🏷️ 종류를 예측</strong><span>정상/사기, 이탈/유지처럼 범주를 맞히고 싶다 → Classification</span></div>
     <div class="choice" data-jump="cluster" role="button" tabindex="0"><strong>🧩 그룹을 찾기</strong><span>정답 라벨 없이 비슷한 대상을 묶고 싶다 → Clustering</span></div>
@@ -67,7 +71,7 @@
 </section>
 
 <section class="section" id="algorithms">
-  <h2>2. 알고리즘별 내부 흐름</h2>
+  <h2>2. 통계 검정 · 알고리즘별 내부 흐름</h2>
   <p class="section-lead">카드를 눌러 세부 흐름을 펼치세요. 각 카드의 “단계별 세부 로직 보기”를 누르면 그 단계에서 평균적으로 쓰이는 구체적인 기법까지 볼 수 있습니다.</p>
   <div class="algorithm-grid">
 
@@ -119,7 +123,11 @@
             </ul>
           </div>
         </div>
-        <div class="two"><div class="info good"><strong>언제?</strong><p>거의 모든 분석의 첫 단계.</p></div><div class="info warn"><strong>주의</strong><p>평균 하나만 보고 전체 분포를 판단하지 않는다.</p></div></div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>특별한 통계적 가정이 없다. 정형 데이터면 바로 적용 가능.</p></div>
+          <div class="info good"><strong>언제?</strong><p>거의 모든 분석의 첫 단계.</p></div>
+          <div class="info warn"><strong>주의</strong><p>평균 하나만 보고 전체 분포를 판단하지 않는다.</p></div>
+        </div>
       </div>
     </article>
 
@@ -169,7 +177,16 @@
             </ul>
           </div>
         </div>
-        <div class="two"><div class="info good"><strong>강점</strong><p>해석이 쉽고 좋은 baseline이 된다.</p></div><div class="info warn"><strong>주의</strong><p>계수가 곧 인과효과라는 뜻은 아니다.</p></div></div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>선형성, 오차의 정규성·등분산성, 다중공선성이 낮아야 한다.</p></div>
+          <div class="info good"><strong>강점</strong><p>해석이 쉽고 좋은 baseline이 된다.</p></div>
+          <div class="info warn"><strong>주의</strong><p>계수가 곧 인과효과라는 뜻은 아니다.</p></div>
+        </div>
+        <div class="compare">
+          <span class="compare-tag">비교</span>
+          <button class="compare-link" data-jump="class">로지스틱 회귀</button> : 범주를 예측하고 싶다면 이쪽.
+          <button class="compare-link" data-jump="corr">상관분석</button> : 관계의 강도만 보고 싶다면 예측 없이 이쪽으로 충분.
+        </div>
       </div>
     </article>
 
@@ -222,7 +239,15 @@
             <div class="step-main"><em>결과</em> 클래스 + 예측 확률</div>
           </div>
         </div>
-        <div class="two"><div class="info good"><strong>강점</strong><p>확률과 계수 해석이 비교적 쉽다.</p></div><div class="info warn"><strong>주의</strong><p>불균형 데이터에서는 Accuracy만 보면 위험하다.</p></div></div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>로짓과 독립변수 간 선형성, 관측치 독립성, 다중공선성이 낮아야 한다.</p></div>
+          <div class="info good"><strong>강점</strong><p>확률과 계수 해석이 비교적 쉽다.</p></div>
+          <div class="info warn"><strong>주의</strong><p>불균형 데이터에서는 Accuracy만 보면 위험하다.</p></div>
+        </div>
+        <div class="compare">
+          <span class="compare-tag">비교</span>
+          <button class="compare-link" data-jump="reg">선형 회귀</button> : 숫자 자체를 예측하고 싶다면 이쪽.
+        </div>
       </div>
     </article>
 
@@ -268,7 +293,15 @@
             </ul>
           </div>
         </div>
-        <div class="two"><div class="info good"><strong>강점</strong><p>비선형 관계와 상호작용을 표현하기 쉽다.</p></div><div class="info warn"><strong>주의</strong><p>깊은 단일 트리는 과적합되기 쉽다.</p></div></div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>특별한 분포 가정이 없다. 스케일링도 불필요.</p></div>
+          <div class="info good"><strong>강점</strong><p>비선형 관계와 상호작용을 표현하기 쉽다.</p></div>
+          <div class="info warn"><strong>주의</strong><p>깊은 단일 트리는 과적합되기 쉽다.</p></div>
+        </div>
+        <div class="compare">
+          <span class="compare-tag">비교</span>
+          <button class="compare-link" data-jump="rf">Random Forest</button> : 단일 트리의 불안정함이 걱정되면 여러 트리를 평균 낸 이쪽으로.
+        </div>
       </div>
     </article>
 
@@ -309,7 +342,15 @@
             <div class="step-main"><em>결과</em> 단일 트리보다 안정적인 예측</div>
           </div>
         </div>
-        <div class="two"><div class="info good"><strong>강점</strong><p>복잡한 정형 데이터에서 안정적인 baseline.</p></div><div class="info warn"><strong>주의</strong><p>변수 중요도는 인과관계가 아니다.</p></div></div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>트리 기반이라 스케일링 불필요. 트리 간 상관이 낮아야 효과적이다.</p></div>
+          <div class="info good"><strong>강점</strong><p>복잡한 정형 데이터에서 안정적인 baseline.</p></div>
+          <div class="info warn"><strong>주의</strong><p>변수 중요도는 인과관계가 아니다.</p></div>
+        </div>
+        <div class="compare">
+          <span class="compare-tag">비교</span>
+          <button class="compare-link" data-jump="boost">Gradient Boosting</button> : 튜닝을 감수하고서라도 성능을 더 끌어올리고 싶다면 이쪽.
+        </div>
       </div>
     </article>
 
@@ -357,7 +398,15 @@
             <div class="step-main"><em>결과</em> 여러 약한 모델을 합친 강한 예측기</div>
           </div>
         </div>
-        <div class="two"><div class="info good"><strong>강점</strong><p>정형 데이터 예측에서 매우 강력하다.</p></div><div class="info warn"><strong>주의</strong><p>튜닝과 데이터 누수 관리가 중요하다.</p></div></div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>스케일링 불필요. 결측치 처리 방식은 라이브러리마다 다르다.</p></div>
+          <div class="info good"><strong>강점</strong><p>정형 데이터 예측에서 매우 강력하다.</p></div>
+          <div class="info warn"><strong>주의</strong><p>튜닝과 데이터 누수 관리가 중요하다.</p></div>
+        </div>
+        <div class="compare">
+          <span class="compare-tag">비교</span>
+          <button class="compare-link" data-jump="rf">Random Forest</button> : 튜닝 없이 먼저 안정적인 baseline부터 보고 싶다면 이쪽.
+        </div>
       </div>
     </article>
 
@@ -401,7 +450,15 @@
             </ul>
           </div>
         </div>
-        <div class="two"><div class="info good"><strong>강점</strong><p>직관적이고 별도 복잡한 학습 과정이 없다.</p></div><div class="info warn"><strong>주의</strong><p>스케일과 차원 수에 매우 민감하다.</p></div></div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>변수 스케일 통일이 필수. 차원이 높으면 성능이 급격히 나빠진다(차원의 저주).</p></div>
+          <div class="info good"><strong>강점</strong><p>직관적이고 별도 복잡한 학습 과정이 없다.</p></div>
+          <div class="info warn"><strong>주의</strong><p>스케일과 차원 수에 매우 민감하다.</p></div>
+        </div>
+        <div class="compare">
+          <span class="compare-tag">비교</span>
+          <button class="compare-link" data-jump="cluster">K-Means</button> : 같은 K라도 이쪽은 비지도학습(군집), KNN은 지도학습(분류/회귀)이라 목적이 다르다.
+        </div>
       </div>
     </article>
 
@@ -449,7 +506,15 @@
             <div class="step-main"><em>결과</em> K개의 데이터 그룹</div>
           </div>
         </div>
-        <div class="two"><div class="info good"><strong>강점</strong><p>대규모 데이터에도 비교적 빠르고 직관적이다.</p></div><div class="info warn"><strong>주의</strong><p>K를 정해야 하며 구형 군집 가정에 가깝다.</p></div></div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>군집이 대략 구형·비슷한 크기라는 가정. 스케일링 필요, K를 미리 정해야 한다.</p></div>
+          <div class="info good"><strong>강점</strong><p>대규모 데이터에도 비교적 빠르고 직관적이다.</p></div>
+          <div class="info warn"><strong>주의</strong><p>K를 정해야 하며 구형 군집 가정에 가깝다.</p></div>
+        </div>
+        <div class="compare">
+          <span class="compare-tag">비교</span>
+          <button class="compare-link" data-jump="dbscan">DBSCAN</button> : K를 미리 정하지 않고 임의 모양 군집을 찾고 싶다면 이쪽.
+        </div>
       </div>
     </article>
 
@@ -486,7 +551,15 @@
             <div class="step-main"><em>결과</em> 임의 모양 군집 + 이상점</div>
           </div>
         </div>
-        <div class="two"><div class="info good"><strong>강점</strong><p>K를 미리 정하지 않고 복잡한 모양을 찾는다.</p></div><div class="info warn"><strong>주의</strong><p>밀도가 크게 다른 군집에는 설정이 어렵다.</p></div></div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>군집 간 밀도가 비교적 균일하다는 가정. eps·min_samples 설정에 민감하다.</p></div>
+          <div class="info good"><strong>강점</strong><p>K를 미리 정하지 않고 복잡한 모양을 찾는다.</p></div>
+          <div class="info warn"><strong>주의</strong><p>밀도가 크게 다른 군집에는 설정이 어렵다.</p></div>
+        </div>
+        <div class="compare">
+          <span class="compare-tag">비교</span>
+          <button class="compare-link" data-jump="cluster">K-Means</button> : 군집 개수를 이미 알고 있고 더 빠른 계산을 원한다면 이쪽.
+        </div>
       </div>
     </article>
 
@@ -534,7 +607,11 @@
             <div class="step-main"><em>결과</em> 적은 차원의 새로운 변수</div>
           </div>
         </div>
-        <div class="two"><div class="info good"><strong>강점</strong><p>상관된 많은 변수를 압축할 수 있다.</p></div><div class="info warn"><strong>주의</strong><p>PC가 원래 변수보다 해석하기 어려울 수 있다.</p></div></div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>변수 간 선형 관계를 가정. 스케일에 민감해 보통 표준화가 필요하다.</p></div>
+          <div class="info good"><strong>강점</strong><p>상관된 많은 변수를 압축할 수 있다.</p></div>
+          <div class="info warn"><strong>주의</strong><p>PC가 원래 변수보다 해석하기 어려울 수 있다.</p></div>
+        </div>
       </div>
     </article>
 
@@ -574,7 +651,15 @@
             <div class="step-main"><em>결과</em> 정상/이상 + anomaly score</div>
           </div>
         </div>
-        <div class="two"><div class="info good"><strong>강점</strong><p>고차원 데이터에도 적용 가능하다.</p></div><div class="info warn"><strong>주의</strong><p>‘드물다’와 ‘문제다’는 같은 뜻이 아니다.</p></div></div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>정상 데이터가 다수라는 가정(오염 비율이 낮음). 특별한 분포 가정은 없다.</p></div>
+          <div class="info good"><strong>강점</strong><p>고차원 데이터에도 적용 가능하다.</p></div>
+          <div class="info warn"><strong>주의</strong><p>‘드물다’와 ‘문제다’는 같은 뜻이 아니다.</p></div>
+        </div>
+        <div class="compare">
+          <span class="compare-tag">비교</span>
+          <button class="compare-link" data-jump="dbscan">DBSCAN</button> : 이상치뿐 아니라 군집 구조 자체도 함께 보고 싶다면 이쪽.
+        </div>
       </div>
     </article>
 
@@ -624,7 +709,11 @@
             <div class="step-main"><em>결과</em> 미래값 + 예측 불확실성</div>
           </div>
         </div>
-        <div class="two"><div class="info good"><strong>강점</strong><p>시간 의존성과 추세를 명시적으로 다룬다.</p></div><div class="info warn"><strong>주의</strong><p>랜덤 셔플 분할을 하면 미래 정보 누수가 생길 수 있다.</p></div></div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>정상성 가정(비정상이면 차분 필요). 결측 없는 등간격 시계열이어야 한다.</p></div>
+          <div class="info good"><strong>강점</strong><p>시간 의존성과 추세를 명시적으로 다룬다.</p></div>
+          <div class="info warn"><strong>주의</strong><p>랜덤 셔플 분할을 하면 미래 정보 누수가 생길 수 있다.</p></div>
+        </div>
       </div>
     </article>
 
@@ -672,7 +761,191 @@
             <div class="step-main"><em>결과</em> 지수 + 순위 + 불확실성/한계</div>
           </div>
         </div>
-        <div class="two"><div class="info good"><strong>핵심</strong><p>‘계산법’보다 변수와 가중치의 이론적 근거가 중요하다.</p></div><div class="info warn"><strong>주의</strong><p>정규화 선택 때문에 순위가 뒤집히는지 반드시 확인한다.</p></div></div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>하위지표 간 이론적 정합성이 필요. 정규화·가중치 선택에 결과가 민감하다.</p></div>
+          <div class="info good"><strong>핵심</strong><p>‘계산법’보다 변수와 가중치의 이론적 근거가 중요하다.</p></div>
+          <div class="info warn"><strong>주의</strong><p>정규화 선택 때문에 순위가 뒤집히는지 반드시 확인한다.</p></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" id="corr" data-keywords="상관분석 correlation pearson spearman 관계 연속형 통계">
+      <div class="card-head"><div class="icon">🔗</div><div><h3>상관분석</h3><span class="tag">통계 검정 · 관계의 강도</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
+        <div class="mini-flow">
+          <div class="step">
+            <div class="step-main"><em>입력</em> 연속형 변수 두 개(X, Y)</div>
+            <ul class="step-detail">
+              <li>산점도로 먼저 관계의 형태(선형/비선형) 확인</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">관계 강도를 측정할 방법 선택</div>
+            <ul class="step-detail">
+              <li>선형 관계 · 정규성 만족: Pearson</li>
+              <li>비선형/순위 기반/이상치 많음: Spearman</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">상관계수 r 계산(-1 ~ 1)</div>
+            <ul class="step-detail">
+              <li>절댓값이 클수록 강한 관계, 부호는 방향</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">유의성 검정</div>
+            <ul class="step-detail">
+              <li>p-value로 관측된 상관이 우연인지 확인</li>
+              <li>표본 크기가 클수록 작은 상관도 유의하게 나오기 쉽다</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> 관계의 방향과 강도(인과관계 아님)</div>
+          </div>
+        </div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>연속형 변수. Pearson은 선형 관계와 정규성을 가정(비선형·순위형이면 Spearman).</p></div>
+          <div class="info good"><strong>강점</strong><p>계산이 간단하고 변수 관계를 빠르게 스크리닝할 수 있다.</p></div>
+          <div class="info warn"><strong>주의</strong><p>상관은 인과관계가 아니다. 이상치 하나로 크게 흔들릴 수 있다.</p></div>
+        </div>
+        <div class="compare">
+          <span class="compare-tag">비교</span>
+          <button class="compare-link" data-jump="reg">선형 회귀</button> : 관계의 강도를 넘어 예측·설명까지 하고 싶다면 이쪽.
+        </div>
+      </div>
+    </article>
+
+    <article class="card" id="ttest" data-keywords="t검정 ttest t-test 두 그룹 평균 비교 가설검정 통계">
+      <div class="card-head"><div class="icon">⚖️</div><div><h3>t-test</h3><span class="tag">통계 검정 · 두 그룹 평균 비교</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
+        <div class="mini-flow">
+          <div class="step">
+            <div class="step-main"><em>입력</em> 연속형 변수 + 2개 그룹 라벨</div>
+          </div>
+          <div class="step">
+            <div class="step-main">가설 설정</div>
+            <ul class="step-detail">
+              <li>H0(귀무): 두 그룹 평균이 같다</li>
+              <li>H1(대립): 두 그룹 평균이 다르다</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">정규성 · 등분산성 확인</div>
+            <ul class="step-detail">
+              <li>Shapiro-Wilk로 정규성, Levene 검정으로 등분산 확인</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">t 통계량 계산</div>
+            <ul class="step-detail">
+              <li>독립표본 vs 대응표본 구분</li>
+              <li>등분산 가정이 어려우면 Welch's t-test</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">p-value로 판단</div>
+            <ul class="step-detail">
+              <li>유의수준(보통 0.05)과 비교</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> 그룹 간 평균 차이가 통계적으로 유의한지</div>
+          </div>
+        </div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>연속형 종속변수, 정규성(표본이 작을 때 특히 중요), 등분산성(또는 Welch 보정).</p></div>
+          <div class="info good"><strong>언제?</strong><p>A/B 테스트처럼 두 조건을 비교할 때 가장 먼저 떠올릴 방법.</p></div>
+          <div class="info warn"><strong>주의</strong><p>유의하다고 해서 차이의 크기(effect size)가 큰 것은 아니다.</p></div>
+        </div>
+        <div class="compare">
+          <span class="compare-tag">비교</span>
+          <button class="compare-link" data-jump="anova">ANOVA</button> : 비교할 그룹이 3개 이상이라면 이쪽.
+        </div>
+      </div>
+    </article>
+
+    <article class="card" id="anova" data-keywords="anova 분산분석 세 그룹 이상 평균 비교 통계 가설검정">
+      <div class="card-head"><div class="icon">📐</div><div><h3>ANOVA</h3><span class="tag">통계 검정 · 세 그룹 이상 평균 비교</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
+        <div class="mini-flow">
+          <div class="step">
+            <div class="step-main"><em>입력</em> 연속형 변수 + 3개 이상 그룹</div>
+          </div>
+          <div class="step">
+            <div class="step-main">가설 설정</div>
+            <ul class="step-detail">
+              <li>H0: 모든 그룹의 평균이 같다</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">그룹 간 분산과 그룹 내 분산 비교</div>
+            <ul class="step-detail">
+              <li>F 통계량 = 그룹간분산 / 그룹내분산</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">p-value로 판단</div>
+          </div>
+          <div class="step">
+            <div class="step-main">유의하면 사후검정</div>
+            <ul class="step-detail">
+              <li>Tukey HSD 등으로 구체적으로 어떤 그룹끼리 다른지 확인</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> 그룹 중 최소 하나는 다르다(어디가 다른지는 사후검정 필요)</div>
+          </div>
+        </div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>연속형 종속변수, 정규성, 등분산성(Levene 검정), 그룹 간 독립.</p></div>
+          <div class="info good"><strong>언제?</strong><p>3개 이상 그룹을 한 번에 비교하고 싶을 때.</p></div>
+          <div class="info warn"><strong>주의</strong><p>ANOVA만으로는 “다르다”만 알 수 있고 어디가 다른지는 알려주지 않는다.</p></div>
+        </div>
+        <div class="compare">
+          <span class="compare-tag">비교</span>
+          <button class="compare-link" data-jump="ttest">t-test</button> : 비교할 그룹이 2개뿐이라면 이쪽이 더 간단하다.
+        </div>
+      </div>
+    </article>
+
+    <article class="card" id="chisq" data-keywords="카이제곱 chi-square chisquare 범주형 독립성 검정 통계">
+      <div class="card-head"><div class="icon">🔲</div><div><h3>Chi-square 검정</h3><span class="tag">통계 검정 · 범주형 변수 간 연관성</span></div><div class="chev">⌄</div></div>
+      <div class="card-body">
+        <button class="detail-toggle" type="button" aria-pressed="false">단계별 세부 로직 보기</button>
+        <div class="mini-flow">
+          <div class="step">
+            <div class="step-main"><em>입력</em> 범주형 변수 두 개</div>
+          </div>
+          <div class="step">
+            <div class="step-main">교차표(contingency table) 작성</div>
+          </div>
+          <div class="step">
+            <div class="step-main">기대빈도 계산</div>
+            <ul class="step-detail">
+              <li>두 변수가 독립이라고 가정했을 때 기대되는 셀별 빈도</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">카이제곱 통계량 계산</div>
+            <ul class="step-detail">
+              <li>Σ (관측빈도 − 기대빈도)² / 기대빈도</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-main">p-value로 판단</div>
+          </div>
+          <div class="step">
+            <div class="step-main"><em>결과</em> 두 범주형 변수가 서로 연관이 있는지</div>
+          </div>
+        </div>
+        <div class="three">
+          <div class="info pre"><strong>선행조건</strong><p>범주형 변수, 각 셀 기대빈도 5 이상 권장, 관측치 독립.</p></div>
+          <div class="info good"><strong>언제?</strong><p>성별 × 구매여부처럼 두 범주형 변수의 연관을 보고 싶을 때.</p></div>
+          <div class="info warn"><strong>주의</strong><p>연관이 있다는 것과 관계의 방향·크기를 아는 것은 다르다.</p></div>
+        </div>
       </div>
     </article>
 
@@ -686,6 +959,9 @@
     <thead><tr><th>목적</th><th>대표 방법</th><th>목표값 y</th><th>스케일 영향</th><th>핵심 평가</th></tr></thead>
     <tbody>
       <tr><td>데이터 이해</td><td>EDA / 기술통계</td><td>없어도 됨</td><td>방법에 따라 다름</td><td>분포·품질·해석</td></tr>
+      <tr><td>관계 강도</td><td>상관분석(Pearson/Spearman)</td><td>없음</td><td>Spearman은 낮음</td><td>상관계수 r + p-value</td></tr>
+      <tr><td>그룹 차이 검정</td><td>t-test(2그룹) / ANOVA(3그룹+)</td><td>연속형</td><td>없음</td><td>p-value + 사후검정</td></tr>
+      <tr><td>범주 연관성</td><td>Chi-square</td><td>범주형</td><td>없음</td><td>카이제곱 통계량 + p-value</td></tr>
       <tr><td>숫자 예측</td><td>Linear / RF / Boosting</td><td>연속형</td><td>모델별 상이</td><td>MAE·RMSE·R²</td></tr>
       <tr><td>범주 예측</td><td>Logistic / Tree / RF / Boosting</td><td>범주형</td><td>모델별 상이</td><td>Precision·Recall·F1·AUC</td></tr>
       <tr><td>그룹 발견</td><td>K-Means / DBSCAN</td><td>없음</td><td>대체로 중요</td><td>Silhouette + 해석 가능성</td></tr>
