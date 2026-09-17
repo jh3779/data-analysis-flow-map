@@ -4,89 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>데이터 분석 알고리즘 Flow Map</title>
-<style>
-:root{
-  --bg:#0b1020; --panel:#121a2e; --panel2:#18233d; --line:#445275;
-  --text:#edf2ff; --muted:#aab6d3; --accent:#8eb7ff; --accent2:#a9e6c5;
-  --warn:#ffd18e; --danger:#ff9aa8; --shadow:0 12px 30px rgba(0,0,0,.23);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
-a{color:var(--accent);text-decoration:none}
-button,input{font:inherit}
-header{position:sticky;top:0;z-index:10;background:rgba(11,16,32,.92);backdrop-filter:blur(14px);border-bottom:1px solid #25314d}
-.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
-.nav{min-height:72px;display:flex;align-items:center;gap:16px}
-.brand{font-weight:800;letter-spacing:-.02em;white-space:nowrap}
-.brand span{color:var(--accent)}
-.search{margin-left:auto;flex:1;max-width:390px;background:#11192d;border:1px solid #2b3858;border-radius:12px;padding:10px 13px;color:var(--text);outline:none}
-.search:focus{border-color:var(--accent)}
-.hero{padding:70px 0 36px}
-.hero h1{font-size:clamp(32px,5vw,56px);line-height:1.08;margin:0 0 18px;letter-spacing:-.045em}
-.hero p{max-width:780px;color:var(--muted);font-size:18px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
-.chip{border:1px solid #354463;background:#131c32;color:#dfe7fb;padding:8px 11px;border-radius:999px;cursor:pointer}
-.chip:hover{border-color:var(--accent)}
-.section{padding:32px 0}
-.section h2{font-size:28px;margin:0 0 8px;letter-spacing:-.025em}
-.section-lead{color:var(--muted);margin:0 0 22px}
-.panel{background:var(--panel);border:1px solid #263450;border-radius:18px;padding:22px;box-shadow:var(--shadow)}
-.flow{display:flex;align-items:stretch;gap:10px;overflow-x:auto;padding:8px 2px 12px}
-.node{min-width:175px;background:var(--panel2);border:1px solid #334365;border-radius:14px;padding:14px}
-.node b{display:block;margin-bottom:4px}
-.node small{color:var(--muted)}
-.arrow{display:flex;align-items:center;color:#6e7ea5;font-size:26px}
-.decision-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.choice{background:#16213a;border:1px solid #31415f;border-radius:14px;padding:16px;cursor:pointer;transition:.18s}
-.choice:hover{transform:translateY(-2px);border-color:var(--accent)}
-.choice strong{display:block;font-size:17px;margin-bottom:5px}
-.choice span{color:var(--muted);font-size:14px}
-.algorithm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.card{background:var(--panel);border:1px solid #273550;border-radius:17px;overflow:hidden;box-shadow:var(--shadow)}
-.card.hidden{display:none}
-.card-head{padding:18px 20px;display:flex;gap:12px;align-items:flex-start;cursor:pointer}
-.icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:#1e2c4b;font-size:21px;flex:0 0 auto}
-.card h3{margin:0;font-size:19px}
-.tag{display:inline-block;margin-top:5px;color:var(--muted);font-size:13px}
-.chev{margin-left:auto;color:#8593b6;transition:.2s}
-.card.open .chev{transform:rotate(180deg)}
-.card-body{display:none;border-top:1px solid #273550;padding:18px 20px;background:#0f172a}
-.card.open .card-body{display:block}
-.mini-flow{display:grid;grid-template-columns:1fr;gap:7px;margin:12px 0 16px}
-.step{position:relative;background:#17233c;border:1px solid #30405f;border-radius:11px;padding:10px 12px}
-.step:not(:last-child)::after{content:"↓";position:absolute;left:50%;bottom:-19px;transform:translateX(-50%);color:#7c8bae;z-index:2}
-.step:not(:last-child){margin-bottom:11px}
-.step em{font-style:normal;color:var(--accent2);font-weight:700}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.info{background:#141f36;border-radius:12px;padding:12px 14px;border:1px solid #2a3957}
-.info strong{font-size:14px}
-.info p{color:var(--muted);font-size:14px;margin:5px 0 0}
-.warn{border-color:#5a4b33}.warn strong{color:var(--warn)}
-.good strong{color:var(--accent2)}
-.table{width:100%;border-collapse:collapse;font-size:14px}
-.table th,.table td{padding:11px 9px;border-bottom:1px solid #26344f;text-align:left;vertical-align:top}
-.table th{color:#bfcbe6}
-.table td{color:var(--muted)}
-.callout{border-left:4px solid var(--accent);background:#121e35;padding:14px 16px;border-radius:0 12px 12px 0}
-.footer{padding:46px 0 70px;color:var(--muted);font-size:14px}
-.kbd{padding:2px 7px;border-radius:6px;background:#202d48;border:1px solid #354362}
-@media(max-width:880px){
- .decision-grid,.algorithm-grid,.two{grid-template-columns:1fr}
- .search{max-width:none}
- .nav{flex-wrap:wrap;padding:12px 0}
- .search{order:3;width:100%}
-}
-@media print{
- header,.chips{display:none}
- body{background:#fff;color:#111}
- .panel,.card{box-shadow:none;border-color:#bbb;background:#fff}
- .card-body{display:block!important;background:#fff}
- .card{break-inside:avoid}
- .node,.step,.choice,.info{background:#fff;color:#111;border-color:#bbb}
- .section-lead,.tag,.info p,.node small,.choice span,.table td{color:#555}
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
@@ -393,34 +311,6 @@ header{position:sticky;top:0;z-index:10;background:rgba(11,16,32,.92);backdrop-f
 </footer>
 </main>
 
-<script>
-const cards=[...document.querySelectorAll('.card')];
-document.querySelectorAll('.card-head').forEach(h=>{
- h.addEventListener('click',()=>h.parentElement.classList.toggle('open'));
-});
-function filter(q){
- q=q.trim().toLowerCase();
- cards.forEach(c=>{
-   const text=(c.innerText+' '+c.dataset.keywords).toLowerCase();
-   c.classList.toggle('hidden', q && q!=='all' && !text.includes(q));
- });
-}
-document.getElementById('search').addEventListener('input',e=>filter(e.target.value));
-document.querySelectorAll('.chip').forEach(b=>{
- b.addEventListener('click',()=>{
-   const v=b.dataset.filter;
-   document.getElementById('search').value=v==='all'?'':v;
-   filter(v==='all'?'':v);
-   document.getElementById('algorithms').scrollIntoView();
- });
-});
-document.querySelectorAll('.choice').forEach(c=>{
- c.addEventListener('click',()=>{
-   const target=document.getElementById(c.dataset.jump);
-   target.classList.add('open');
-   target.scrollIntoView({behavior:'smooth',block:'center'});
- });
-});
-</script>
+<script src="script.js"></script>
 </body>
 </html>
