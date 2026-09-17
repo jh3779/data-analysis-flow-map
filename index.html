@@ -2,16 +2,20 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="문제 정의부터 알고리즘 선택까지, 데이터 분석 방법을 한 장의 흐름도로 연결해서 보는 개인 학습용 참고 자료.">
 <title>데이터 분석 알고리즘 Flow Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
   <div class="wrap nav">
     <div class="brand">DATA <span>FLOW MAP</span></div>
-    <div style="color:var(--muted);font-size:14px">데이터 분석 학습용</div>
-    <input id="search" class="search" placeholder="알고리즘 검색: 회귀, PCA, 군집, 시계열..." />
+    <div class="nav-sub">데이터 분석 학습용</div>
+    <input id="search" class="search" type="search" aria-label="알고리즘 검색" placeholder="알고리즘 검색: 회귀, PCA, 군집, 시계열..." />
   </div>
 </header>
 
@@ -51,14 +55,14 @@
   <h2>1. 어떤 문제인가?</h2>
   <p class="section-lead">아래 질문에서 가장 가까운 것을 고르면 됩니다.</p>
   <div class="decision-grid">
-    <div class="choice" data-jump="desc"><strong>📊 현재 데이터를 설명</strong><span>평균·분포·그룹 차이·관계가 궁금하다 → EDA / 기술통계 / 상관</span></div>
-    <div class="choice" data-jump="reg"><strong>🔢 숫자를 예측</strong><span>가격·매출·수요처럼 연속적인 값을 맞히고 싶다 → Regression</span></div>
-    <div class="choice" data-jump="class"><strong>🏷️ 종류를 예측</strong><span>정상/사기, 이탈/유지처럼 범주를 맞히고 싶다 → Classification</span></div>
-    <div class="choice" data-jump="cluster"><strong>🧩 그룹을 찾기</strong><span>정답 라벨 없이 비슷한 대상을 묶고 싶다 → Clustering</span></div>
-    <div class="choice" data-jump="pca"><strong>🗜️ 변수를 압축</strong><span>변수가 너무 많고 핵심 축을 찾고 싶다 → PCA</span></div>
-    <div class="choice" data-jump="anomaly"><strong>🚨 이상한 관측치 찾기</strong><span>정상 패턴에서 벗어난 데이터를 탐지 → Anomaly Detection</span></div>
-    <div class="choice" data-jump="time"><strong>⏱️ 시간 흐름을 분석</strong><span>추세·계절성·미래 값을 알고 싶다 → Time Series</span></div>
-    <div class="choice" data-jump="index"><strong>🧮 여러 지표를 하나로</strong><span>여러 변수로 위험도·점수·지수를 만들고 싶다 → Composite Index</span></div>
+    <div class="choice" data-jump="desc" role="button" tabindex="0"><strong>📊 현재 데이터를 설명</strong><span>평균·분포·그룹 차이·관계가 궁금하다 → EDA / 기술통계 / 상관</span></div>
+    <div class="choice" data-jump="reg" role="button" tabindex="0"><strong>🔢 숫자를 예측</strong><span>가격·매출·수요처럼 연속적인 값을 맞히고 싶다 → Regression</span></div>
+    <div class="choice" data-jump="class" role="button" tabindex="0"><strong>🏷️ 종류를 예측</strong><span>정상/사기, 이탈/유지처럼 범주를 맞히고 싶다 → Classification</span></div>
+    <div class="choice" data-jump="cluster" role="button" tabindex="0"><strong>🧩 그룹을 찾기</strong><span>정답 라벨 없이 비슷한 대상을 묶고 싶다 → Clustering</span></div>
+    <div class="choice" data-jump="pca" role="button" tabindex="0"><strong>🗜️ 변수를 압축</strong><span>변수가 너무 많고 핵심 축을 찾고 싶다 → PCA</span></div>
+    <div class="choice" data-jump="anomaly" role="button" tabindex="0"><strong>🚨 이상한 관측치 찾기</strong><span>정상 패턴에서 벗어난 데이터를 탐지 → Anomaly Detection</span></div>
+    <div class="choice" data-jump="time" role="button" tabindex="0"><strong>⏱️ 시간 흐름을 분석</strong><span>추세·계절성·미래 값을 알고 싶다 → Time Series</span></div>
+    <div class="choice" data-jump="index" role="button" tabindex="0"><strong>🧮 여러 지표를 하나로</strong><span>여러 변수로 위험도·점수·지수를 만들고 싶다 → Composite Index</span></div>
   </div>
 </section>
 
@@ -301,8 +305,8 @@
   <h2>4. 참고용 공식 자료</h2>
   <p class="section-lead">알고리즘 선택 자체는 공식 문서의 흐름도를 같이 보면 좋습니다.</p>
   <div class="two">
-    <div class="info"><strong>scikit-learn — Choosing the right estimator</strong><p><a href="https://scikit-learn.org/dev/machine_learning_map.html" target="_blank">공식 estimator 선택 흐름도 열기 ↗</a></p></div>
-    <div class="info"><strong>SAS — Machine Learning Algorithm Guide</strong><p><a href="https://www.sas.com/ko_kr/solutions/ai-mic/blog/machine-learning-algorithm-cheat-sheet.html" target="_blank">알고리즘 치트시트 설명 열기 ↗</a></p></div>
+    <div class="info"><strong>scikit-learn: Choosing the right estimator</strong><p><a href="https://scikit-learn.org/dev/machine_learning_map.html" target="_blank">공식 estimator 선택 흐름도 열기 ↗</a></p></div>
+    <div class="info"><strong>SAS: Machine Learning Algorithm Guide</strong><p><a href="https://www.sas.com/ko_kr/solutions/ai-mic/blog/machine-learning-algorithm-cheat-sheet.html" target="_blank">알고리즘 치트시트 설명 열기 ↗</a></p></div>
   </div>
 </section>
 
